@@ -38,5 +38,5 @@ jobs:
       with:
         push: true
         tags: aaron/images:app-${{ github.sha }}
-        file: ./GoodWeather/.docker
+        file: .docker/Dockerfile
      
