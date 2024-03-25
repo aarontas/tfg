@@ -1,4 +1,4 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+﻿FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS build
 WORKDIR /workspace
 COPY ["GoodWeather.sln", "."]
 COPY ["nuget.config", "."]
@@ -14,5 +14,6 @@ RUN dotnet publish "src/GoodWeather.Api/GoodWeather.Api.csproj" --no-restore --n
 
 FROM base AS runtime
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
+COPY .docker/ .
 ENTRYPOINT ["dotnet", "GoodWeather.Api.dll"]
