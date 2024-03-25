@@ -1,7 +1,6 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS build
 WORKDIR /workspace
 COPY ["GoodWeather.sln", "."]
-COPY ["nuget.config", "."]
 
 # API projects
 COPY ["src/GoodWeather.Api/GoodWeather.Api.csproj", "src/GoodWeather.Api/"]
