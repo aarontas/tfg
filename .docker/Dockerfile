@@ -15,5 +15,4 @@ RUN dotnet publish "src/GoodWeather.Api/GoodWeather.Api.csproj" --no-restore --n
 FROM base AS runtime
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY .docker/ .
 ENTRYPOINT ["dotnet", "GoodWeather.Api.dll"]
