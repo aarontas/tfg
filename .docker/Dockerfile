@@ -12,7 +12,7 @@ COPY src src
 RUN dotnet build --no-restore -c Release ./src/GoodWeather.Api/GoodWeather.Api.csproj
 RUN dotnet publish "src/GoodWeather.Api/GoodWeather.Api.csproj" --no-restore --no-build -c Release -o /app/publish
 
-FROM base AS runtime
+FROM build AS runtime
 WORKDIR /app
 COPY --from=build /app/publish .
 COPY .docker/ .
