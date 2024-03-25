@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodWeather.Api", "GoodWeather.Api\GoodWeather.Api.csproj", "{701B6FC5-3BCE-489B-BC98-AD4B4EB728AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodWeather.Api", "src\GoodWeather.Api\GoodWeather.Api.csproj", "{701B6FC5-3BCE-489B-BC98-AD4B4EB728AF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{A931537B-C8A6-47C4-BFE3-6951ACA04201}"
 EndProject
