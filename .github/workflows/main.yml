@@ -37,6 +37,6 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         push: true
-        tags: goodweather/images:app-${{ github.sha }}
+        tags: aarontas8/goodweather:app-${{ github.sha }}
         file: .docker/Dockerfile
      
