@@ -1,4 +1,4 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS build
+﻿FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine3.16 AS build
 WORKDIR /workspace
 COPY ["GoodWeather.sln", "."]
 
