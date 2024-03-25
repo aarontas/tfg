@@ -4,7 +4,7 @@ COPY ["GoodWeather.sln", "."]
 
 # API projects
 COPY ["src/GoodWeather.Api/GoodWeather.Api.csproj", "src/GoodWeather.Api/"]
-RUN dotnet restore ./src/GoodWeather.Api/GoodWeather.Api.csproj --configfile ./nuget.config
+RUN dotnet restore ./src/GoodWeather.Api/GoodWeather.Api.csproj
 
 COPY src src
 RUN dotnet build --no-restore -c Release ./src/GoodWeather.Api/GoodWeather.Api.csproj
