@@ -1,6 +1,6 @@
-using ExternalServices.Weather.RequestModels;
+using GoodWeather.ExternalServices.Weather.RequestModels;
 
-namespace ExternalServices.Weather.Client;
+namespace GoodWeather.ExternalServices.Weather.Client;
 
 public interface IWeatherService
 {

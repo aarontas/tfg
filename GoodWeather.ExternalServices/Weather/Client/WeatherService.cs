@@ -1,9 +1,9 @@
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
-using ExternalServices.Weather.RequestModels;
+using GoodWeather.ExternalServices.Weather.RequestModels;
 
-namespace ExternalServices.Weather.Client;
+namespace GoodWeather.ExternalServices.Weather.Client;
 
 public class WeatherService : IWeatherService
 {

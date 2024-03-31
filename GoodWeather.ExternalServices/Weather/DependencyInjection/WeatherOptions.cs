@@ -1,4 +1,4 @@
-namespace ExternalServices.Weather.DependencyInjection;
+namespace GoodWeather.ExternalServices.Weather.DependencyInjection;
 
 public class WeatherOptions
 {

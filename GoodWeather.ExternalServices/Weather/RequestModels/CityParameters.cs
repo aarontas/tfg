@@ -1,4 +1,4 @@
-namespace ExternalServices.Weather.RequestModels;
+namespace GoodWeather.ExternalServices.Weather.RequestModels;
 
 public record CityParameters(
     double Latitude,
