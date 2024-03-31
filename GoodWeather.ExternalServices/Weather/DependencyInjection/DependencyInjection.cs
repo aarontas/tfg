@@ -1,8 +1,8 @@
-using ExternalServices.Weather.Client;
+using GoodWeather.ExternalServices.Weather.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ExternalServices.Weather.DependencyInjection;
+namespace GoodWeather.ExternalServices.Weather.DependencyInjection;
 
 public static class DependencyInjection
 {

@@ -1,6 +1,7 @@
+using GoodWeather.Api;
+
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+var app = builder.AddAppServices().Build();
 
-app.MapGet("/", () => "Hello World!");
-
-app.Run();
+await app.UseAppMiddlewares()
+    .RunAsync();
