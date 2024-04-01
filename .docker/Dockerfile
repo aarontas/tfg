@@ -3,8 +3,8 @@ WORKDIR /workspace
 COPY ["GoodWeather.sln", "."]
 
 # API projects
-COPY ["src/GoodWeather.Api/GoodWeather.Api.csproj", "src/GoodWeather.Api/"]
-COPY ["src/GoodWeather.Queries/GoodWeather.Queries.csproj", "src/GoodWeather.Queries/GoodWeather.Queries/"]
+COPY ["GoodWeather.Api/GoodWeather.Api.csproj", "GoodWeather.Api/"]
+COPY ["GoodWeather.Queries/GoodWeather.Queries.csproj", "GoodWeather.Queries/GoodWeather.Queries/"]
 RUN dotnet restore ./src/GoodWeather.Api/GoodWeather.Api.csproj
 
 COPY src src
