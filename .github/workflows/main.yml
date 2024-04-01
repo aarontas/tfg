@@ -27,7 +27,15 @@ jobs:
           8.0.x
           
     - name: Run tests
-      run: dotnet test --no-restore --verbosity normal
+      run: |
+          dotnet test -c Release --logger trx --collect:"XPlat Code Coverage" --results-directory "./test-results"
+
+    - name: Parse tests output (trx files)
+      uses: NasAmin/trx-parser@v0.2.0
+      id: trx-parser
+      with:
+        TRX_PATH: ./test-results
+        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   docker:
     needs: run_tests
