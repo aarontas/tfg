@@ -15,7 +15,7 @@ public static class DependencyInjection
         if (weatherConfig is null || string.IsNullOrEmpty(weatherConfig.BaseAddress))
             throw new InvalidOperationException("BaseAddress is not set for Weather options");
 
-        services.AddHttpClient<IWeatherService, WeatherService>(c =>
+        services.AddHttpClient<IWeatherClient, WeatherClient>(c =>
         {
             c.BaseAddress = new Uri(weatherConfig.BaseAddress);
         });

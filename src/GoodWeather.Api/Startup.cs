@@ -1,4 +1,7 @@
 using System.Text.Json;
+using GoodWeather.Common.DependencyInjection;
+using GoodWeather.CQRS.Queries.DependencyInjection;
+using GoodWeather.ExternalServices.GeoCoding.DependencyInjection;
 using GoodWeather.ExternalServices.Weather.DependencyInjection;
 
 namespace GoodWeather.Api;
@@ -18,14 +21,23 @@ public static class Startup
                 options.PropertyNameCaseInsensitive = true;
                 options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
             });
+        services.AddHttpClient();
         services.AddSwaggerGen();
+        services.AddApiVersioning();
+        services.AddQueries();
+        services.AddApplicationCommon();
         services.AddWeatherExternalServices(configuration);
+        services.AddGeoCodingExternalServices(configuration);
         return builder;
     }
     public static WebApplication UseAppMiddlewares(this WebApplication app)
     {
-        app.UseSwagger();
-        app.UseSwaggerUI();
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
         app.UseRouting();
         app.UseEndpoints(endpoints =>
         {
