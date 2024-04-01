@@ -5,11 +5,11 @@ COPY ["GoodWeather.sln", "."]
 # API projects
 COPY ["GoodWeather.Api/GoodWeather.Api.csproj", "GoodWeather.Api/"]
 COPY ["GoodWeather.Queries/GoodWeather.Queries.csproj", "GoodWeather.Queries/GoodWeather.Queries/"]
-RUN dotnet restore ./src/GoodWeather.Api/GoodWeather.Api.csproj
+RUN dotnet restore ./GoodWeather.Api/GoodWeather.Api.csproj
 
 COPY src src
-RUN dotnet build --no-restore -c Release ./src/GoodWeather.Api/GoodWeather.Api.csproj
-RUN dotnet publish "src/GoodWeather.Api/GoodWeather.Api.csproj" --no-restore --no-build -c Release -o /app/publish
+RUN dotnet build --no-restore -c Release ./GoodWeather.Api/GoodWeather.Api.csproj
+RUN dotnet publish "GoodWeather.Api/GoodWeather.Api.csproj" --no-restore --no-build -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine3.18 AS runtime
 WORKDIR /app
