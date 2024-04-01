@@ -15,6 +15,7 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
     private readonly IGeocodingClient _geoCodingClient;
     private readonly IWeatherClient _weatherClient;
     private readonly IScoreService _scoreService;
+    private const int YearsToForecast = 5;
 
     public GetWeatherScoreHandler(
         IGeocodingClient geoCodingClient,
@@ -32,17 +33,55 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
         if (city is null)
             throw new Exception($"City with name {request.CityName} not found");
 
-        var weather = await GetWeather(request, cancellationToken, city);
-        return _scoreService.GetScore(weather, request.CityName);
+        var averageScore = await GetAverageScore(request, cancellationToken, city);
+
+        return new CityWeatherScore(
+            request.CityName,
+            averageScore.Score / YearsToForecast,
+            averageScore.AverageTemperature / YearsToForecast);
     }
 
-    private async Task<WeatherFromApi> GetWeather(GetWeatherScore request, CancellationToken cancellationToken, CityParamFromApi city)
+    private async Task<CityWeatherScore> GetAverageScore(GetWeatherScore request, CancellationToken cancellationToken, CityParamFromApi city)
+    {
+        var averageScore = new CityWeatherScore(request.CityName, default, default);
+
+        for (int yearsBefore = 1; yearsBefore <= YearsToForecast; yearsBefore++)
+        {
+            var weather = await GetWeather(request, city, yearsBefore, cancellationToken);
+            var currentScore = _scoreService.GetScore(weather, request.CityName);
+
+            averageScore = new CityWeatherScore(
+                request.CityName,
+                averageScore.Score + currentScore.Score,
+                averageScore.AverageTemperature + currentScore.AverageTemperature);
+        }
+
+        return averageScore;
+    }
+
+    private async Task<WeatherFromApi> GetWeather(
+        GetWeatherScore request,
+        CityParamFromApi city,
+        int yearsBefore,
+        CancellationToken cancellationToken)
+    {
+        var startDate = request.StartDate.AddYears(-yearsBefore);
+        var endDate = request.EndDate.AddYears(-yearsBefore);
+        var weather = await GetWeather(startDate, endDate, city, cancellationToken);
+        return weather;
+    }
+
+    private async Task<WeatherFromApi> GetWeather(
+        DateTime startDate,
+        DateTime endDate,
+        CityParamFromApi city,
+        CancellationToken cancellationToken)
     {
         var parameters = new CityParameters(
             city.latitude,
             city.longitude,
-            request.StartDate,
-            request.EndDate,
+            startDate,
+            endDate,
             "temperature_2m");
         var weather = await _weatherClient.GetByParameters(parameters, cancellationToken);
         return weather;
