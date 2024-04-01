@@ -33,7 +33,7 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
         if (city is null)
             throw new Exception($"City with name {request.CityName} not found");
 
-        var averageScore = await GetAverageScore(request, cancellationToken, city);
+        var averageScore = await GetAverageScore(request, city, cancellationToken);
 
         return new CityWeatherScore(
             request.CityName,
@@ -41,7 +41,7 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
             averageScore.AverageTemperature / YearsToForecast);
     }
 
-    private async Task<CityWeatherScore> GetAverageScore(GetWeatherScore request, CancellationToken cancellationToken, CityParamFromApi city)
+    private async Task<CityWeatherScore> GetAverageScore(GetWeatherScore request, CityParamFromApi city, CancellationToken cancellationToken)
     {
         var averageScore = new CityWeatherScore(request.CityName, default, default);
 
@@ -58,6 +58,12 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
 
         return averageScore;
     }
+    private async Task<CityParamFromApi?> GetCityParam(GetWeatherScore request, CancellationToken cancellationToken)
+    {
+        var geoCity = new GeoCity(request.CityName, 1, "es", "json");
+        var cityParam = await _geoCodingClient.GetByCity(geoCity, cancellationToken);
+        return cityParam.results.FirstOrDefault();
+    }
 
     private async Task<WeatherFromApi> GetWeather(
         GetWeatherScore request,
@@ -67,30 +73,12 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
     {
         var startDate = request.StartDate.AddYears(-yearsBefore);
         var endDate = request.EndDate.AddYears(-yearsBefore);
-        var weather = await GetWeather(startDate, endDate, city, cancellationToken);
-        return weather;
-    }
-
-    private async Task<WeatherFromApi> GetWeather(
-        DateTime startDate,
-        DateTime endDate,
-        CityParamFromApi city,
-        CancellationToken cancellationToken)
-    {
         var parameters = new CityParameters(
             city.latitude,
             city.longitude,
             startDate,
             endDate,
             "temperature_2m");
-        var weather = await _weatherClient.GetByParameters(parameters, cancellationToken);
-        return weather;
-    }
-
-    private async Task<CityParamFromApi?> GetCityParam(GetWeatherScore request, CancellationToken cancellationToken)
-    {
-        var geoCity = new GeoCity(request.CityName, 1, "es", "json");
-        var cityParam = await _geoCodingClient.GetByCity(geoCity, cancellationToken);
-        return cityParam.results.FirstOrDefault();
+        return await _weatherClient.GetByParameters(parameters, cancellationToken);
     }
 }

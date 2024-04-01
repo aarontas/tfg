@@ -18,9 +18,10 @@ public class WeatherStatusController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetWeatherStatus(string cityName, DateTime startDate, DateTime endDate)
+    public async Task<IActionResult> GetWeatherStatus(string cityName, DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new GetWeatherScore(cityName, startDate, endDate));
+        var request = new GetWeatherScore(cityName, startDate, endDate);
+        var result = await _mediator.Send(request, cancellationToken);
         return Ok(result);
     }
 }
