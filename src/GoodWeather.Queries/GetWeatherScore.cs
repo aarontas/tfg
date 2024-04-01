@@ -40,6 +40,12 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
             averageScore.Score / YearsToForecast,
             averageScore.AverageTemperature / YearsToForecast);
     }
+    private async Task<CityParamFromApi?> GetCityParam(GetWeatherScore request, CancellationToken cancellationToken)
+    {
+        var geoCity = new GeoCity(request.CityName, 1, "es", "json");
+        var cityParam = await _geoCodingClient.GetByCity(geoCity, cancellationToken);
+        return cityParam.results.FirstOrDefault();
+    }
 
     private async Task<CityWeatherScore> GetAverageScore(GetWeatherScore request, CityParamFromApi city, CancellationToken cancellationToken)
     {
@@ -57,12 +63,6 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
         }
 
         return averageScore;
-    }
-    private async Task<CityParamFromApi?> GetCityParam(GetWeatherScore request, CancellationToken cancellationToken)
-    {
-        var geoCity = new GeoCity(request.CityName, 1, "es", "json");
-        var cityParam = await _geoCodingClient.GetByCity(geoCity, cancellationToken);
-        return cityParam.results.FirstOrDefault();
     }
 
     private async Task<WeatherFromApi> GetWeather(
