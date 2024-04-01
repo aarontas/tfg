@@ -31,8 +31,6 @@ public class GetWeatherScoreShould
         _geoCodingClient.Setup(x => x.GetByCity(It.IsAny<GeoCity>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync( new CityWeatherParamFromApi(){results = new List<CityParamFromApi>()});
 
-        string coso = string.Empty;
-        Assert.NotEmpty(coso);
         await Assert.ThrowsAsync<Exception>(() => _sut.Handle(request, CancellationToken.None));
     }
 }
