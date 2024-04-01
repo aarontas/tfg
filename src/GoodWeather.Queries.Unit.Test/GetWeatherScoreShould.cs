@@ -29,7 +29,7 @@ public class GetWeatherScoreShould
     {
         var request = new GetWeatherScore("Barcelona", DateTime.Now, DateTime.Now.AddMonths(1));
         _geoCodingClient.Setup(x => x.GetByCity(It.IsAny<GeoCity>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync((CityWeatherParamFromApi)null!);
+            .ReturnsAsync( new CityWeatherParamFromApi(){results = new List<CityParamFromApi>()});
 
         await Assert.ThrowsAsync<Exception>(() => _sut.Handle(request, CancellationToken.None));
     }
