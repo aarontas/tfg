@@ -12,11 +12,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{96C7E555-B646-41F7-8E03-3B4323299EA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodWeather.ExternalServices", "GoodWeather.ExternalServices\GoodWeather.ExternalServices.csproj", "{B3D8E3B4-6A94-4A61-BCB1-FD8F840D01DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodWeather.ExternalServices", "src\GoodWeather.ExternalServices\GoodWeather.ExternalServices.csproj", "{B3D8E3B4-6A94-4A61-BCB1-FD8F840D01DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodWeather.Queries", "GoodWeather.Queries\GoodWeather.Queries.csproj", "{AA616C61-3227-44B8-8BB5-A96954CEE6A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodWeather.Queries", "src\GoodWeather.Queries\GoodWeather.Queries.csproj", "{AA616C61-3227-44B8-8BB5-A96954CEE6A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodWeather.Common", "GoodWeather.Common\GoodWeather.Common.csproj", "{7DFF36AD-15F1-4F8F-B800-D47DBD1670EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodWeather.Common", "src\GoodWeather.Common\GoodWeather.Common.csproj", "{7DFF36AD-15F1-4F8F-B800-D47DBD1670EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

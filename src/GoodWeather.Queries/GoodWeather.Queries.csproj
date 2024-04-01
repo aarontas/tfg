@@ -13,7 +13,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\GoodWeather.Common\GoodWeather.Common.csproj" />
-      <ProjectReference Include="..\GoodWeather.ExternalServices\GoodWeather.ExternalServices.csproj" />
     </ItemGroup>
 
 </Project>

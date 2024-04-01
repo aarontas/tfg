@@ -7,24 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\GoodWeather.Queries\GoodWeather.Queries.csproj" />
-      <ProjectReference Include="..\..\GoodWeather.ExternalServices\GoodWeather.ExternalServices.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.0.0" />
+      <PackageReference Include="MediatR" Version="12.2.0" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="GoodWeather.Common">
-        <HintPath>bin\Debug\net7.0\GoodWeather.Common.dll</HintPath>
-      </Reference>
-      <Reference Include="GoodWeather.ExternalServices">
-        <HintPath>bin\Debug\net7.0\GoodWeather.ExternalServices.dll</HintPath>
-      </Reference>
-      <Reference Include="GoodWeather.Queries">
-        <HintPath>bin\Debug\net7.0\GoodWeather.Queries.dll</HintPath>
-      </Reference>
+      <ProjectReference Include="..\GoodWeather.Common\GoodWeather.Common.csproj" />
+      <ProjectReference Include="..\GoodWeather.Queries\GoodWeather.Queries.csproj" />
     </ItemGroup>
 </Project>
