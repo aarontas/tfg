@@ -22,7 +22,7 @@ COPY .docker/ .
 USER dp
 COPY --chown=dp ./.docker/entrypoint /usr/local/bin/entrypoint
 
-COPY --chown=dp --from=build-env /out ./
+COPY --chown=dp --from=build /out ./
 
 
 ENTRYPOINT ["entrypoint"]
