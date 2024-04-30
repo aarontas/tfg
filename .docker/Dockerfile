@@ -1,6 +1,10 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine3.18 AS build
 WORKDIR /workspace
 COPY ["GoodWeather.sln", "."]
+COPY ["nuget.config", "."]
+COPY ["Directory.Build.props", "."]
+COPY ["StyleCop.ruleset", "."]
+COPY ["stylecop.json", "."]
 
 # API projects
 COPY ["src/GoodWeather.Api/GoodWeather.Api.csproj", "src/GoodWeather.Api/"]
@@ -18,4 +22,4 @@ WORKDIR /app
 COPY --from=build /app/publish .
 COPY .docker/ .
 CMD echo "Exect bash"
-#ENTRYPOINT ["bash", "./entrypoint"]
+ENTRYPOINT ["bash", "./entrypoint"]
