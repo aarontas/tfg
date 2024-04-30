@@ -1,6 +1,6 @@
+#ENV ASPNETCORE_URLS=http://+:5000
 FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine3.16 AS build
 WORKDIR /workspace
-
 COPY ["GoodWeather.sln", "."]
 
 # API projects
@@ -17,4 +17,5 @@ RUN dotnet publish "src/GoodWeather.Api/GoodWeather.Api.csproj" --no-restore --n
 FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine3.16 AS runtime
 WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "GoodWeather.Api.dll"]
+
+ENTRYPOINT ["dotnet", "GoodWeather.Api.dll", "--urls", "http://+:5000"]
