@@ -17,4 +17,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine3.18 AS runtime
 WORKDIR /app
 COPY --from=build /app/publish .
 COPY .docker/ .
-ENTRYPOINT ["bash", "./entrypoint"]
+#ENTRYPOINT ["bash", "./entrypoint"]
+CMD echo "Starting application"
+ENTRYPOINT dotnet GoodWeather.Api.dll $1
