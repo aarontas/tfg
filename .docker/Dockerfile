@@ -18,4 +18,4 @@ WORKDIR /app
 COPY --from=build /app/publish .
 COPY .docker/ .
 CMD echo "Exect bash"
-ENTRYPOINT ["bash", "./entrypoint"]
+ENTRYPOINT ["dotnet", "GoodWeather.Api.dll"]
