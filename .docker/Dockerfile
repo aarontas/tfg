@@ -3,7 +3,6 @@ WORKDIR /workspace
 COPY ["GoodWeather.sln", "."]
 COPY ["nuget.config", "."]
 COPY ["Directory.Build.props", "."]
-COPY ["StyleCop.ruleset", "."]
 
 # API projects
 COPY ["src/GoodWeather.Api/GoodWeather.Api.csproj", "src/GoodWeather.Api/"]
