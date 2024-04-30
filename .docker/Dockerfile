@@ -2,7 +2,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine3.18 AS build
 WORKDIR /workspace
 COPY ["GoodWeather.sln", "."]
 COPY ["nuget.config", "."]
-COPY ["Directory.Build.props", "."]
 
 # API projects
 COPY ["src/GoodWeather.Api/GoodWeather.Api.csproj", "src/GoodWeather.Api/"]
