@@ -18,6 +18,7 @@ WORKDIR /app
 COPY --from=build /app/publish .
 COPY .docker/ .
 CMD echo dir
+RUN chmod 755 entrypoint
 ENTRYPOINT ["bash", "./entrypoint"]
 CMD echo "Starting application"
 #ENTRYPOINT dotnet GoodWeather.Api.dll $1
