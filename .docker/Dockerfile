@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine3.18 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine3.16 AS build
 WORKDIR /workspace
 COPY ["GoodWeather.sln", "."]
 
@@ -13,7 +13,7 @@ COPY src src
 RUN dotnet build --no-restore -c Release ./src/GoodWeather.Api/GoodWeather.Api.csproj
 RUN dotnet publish "src/GoodWeather.Api/GoodWeather.Api.csproj" --no-restore --no-build -c Release -o /app/publish
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine3.18 AS runtime
+FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine3.16 AS runtime
 WORKDIR /app
 COPY --from=build /app/publish .
 COPY .docker/ .
