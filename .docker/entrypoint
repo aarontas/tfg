@@ -1,4 +1,0 @@
-#!/bin/bash
-
-echo "Starting application"
-dotnet GoodWeather.Api.dll $1

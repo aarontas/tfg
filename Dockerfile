@@ -1,5 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine3.16 AS build
 WORKDIR /workspace
+
 COPY ["GoodWeather.sln", "."]
 
 # API projects
