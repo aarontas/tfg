@@ -17,6 +17,4 @@ RUN dotnet publish "src/GoodWeather.Api/GoodWeather.Api.csproj" --no-restore --n
 FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine3.16 AS runtime
 WORKDIR /app
 COPY --from=build /app/publish .
-COPY .docker/ .
-CMD echo "Exect bash"
 ENTRYPOINT ["dotnet", "GoodWeather.Api.dll"]
