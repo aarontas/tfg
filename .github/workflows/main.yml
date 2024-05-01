@@ -83,7 +83,7 @@ jobs:
       run: |
         echo "Updating manifest"
         cat apps/goodweather/goodweather-app-deployment.yaml
-        sed -i "s+aarontas8/goodweather.*+aarontas8/goodweather:app-$RUN_NUMBER+g" goodweather-app-deployment.yaml
+        sed -i "s+aarontas8/goodweather.*+aarontas8/goodweather:app-$RUN_NUMBER+g" apps/goodweather/goodweather-app-deployment.yaml
         cat apps/goodweather/goodweather-app-deployment.yaml
         git add .
         git commit -m 'Done  by Github Actions   Job changemanifest: ${{ github.run_number }}'
