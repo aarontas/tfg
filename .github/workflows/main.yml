@@ -82,6 +82,8 @@ jobs:
     - name: Update manifest
       run: |
         echo "Updating manifest"
+        git config user.email aaron_tas8@hotmail.com
+        git config user.name aarontas
         cat apps/goodweather/goodweather-app-deployment.yaml
         sed -i "s+aarontas8/goodweather.*+aarontas8/goodweather:app-$RUN_NUMBER+g" apps/goodweather/goodweather-app-deployment.yaml
         cat apps/goodweather/goodweather-app-deployment.yaml
