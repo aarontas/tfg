@@ -69,3 +69,27 @@ jobs:
         tags: aarontas8/goodweather:app-${{ github.sha }}
         file: Dockerfile
      
+  update_manifest:
+    needs: docker
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup ArgoCD repository
+      uses: actions/checkout@v3
+      with:
+        repository: 'aarontas/tfg-argocd'
+        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Update manifest
+      run: |
+        echo "Updating manifest"
+        cat apps/goodweather/goodweather-app-deployment.yaml
+        sed -i "s+aarontas8/goodweather.*+aarontas8/goodweather:app-$RUN_NUMBER+g" goodweather-app-deployment.yaml
+        cat apps/goodweather/goodweather-app-deployment.yaml
+        git add .
+        git commit -m 'Done  by Github Actions   Job changemanifest: ${{ github.run_number }}'
+        git push origin main
+      
+      env:
+        RUN_NUMBER: ${{ github.run_number }}
+
+     
