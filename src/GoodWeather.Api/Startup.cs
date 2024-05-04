@@ -29,11 +29,11 @@ public static class Startup
         services.AddApplicationCommon();
         services.AddWeatherExternalServices(configuration);
         services.AddGeoCodingExternalServices(configuration);
-        // services.AddScoped<ICacheService, CacheService>();
-        // services.AddStackExchangeRedisCache(options =>
-        // {
-        //     options.Configuration = configuration.GetConnectionString("redis");
-        // });
+        services.AddScoped<ICacheService, CacheService>();
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = configuration.GetConnectionString("redis");
+        });
         return builder;
     }
     public static WebApplication UseAppMiddlewares(this WebApplication app)
