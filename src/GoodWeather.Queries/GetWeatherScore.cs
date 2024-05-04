@@ -92,7 +92,7 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
         var weather = await _cacheService.GetAsync<WeatherFromApi>(parameters.ToString(), cancellationToken);
         if (weather is not null)
             return weather;
-        
+
         return await _weatherClient.GetByParameters(parameters, cancellationToken);
     }
 }

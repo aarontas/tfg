@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\GoodWeather.Cache\GoodWeather.Cache.csproj" />
+      <ProjectReference Include="..\GoodWeather.Cache\GoodWeather.Cache.csproj" />
       <ProjectReference Include="..\GoodWeather.Common\GoodWeather.Common.csproj" />
     </ItemGroup>
 
