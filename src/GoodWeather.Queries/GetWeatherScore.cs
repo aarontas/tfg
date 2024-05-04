@@ -1,3 +1,4 @@
+using GoodWeather.Cache;
 using GoodWeather.Common.Dto;
 using GoodWeather.Common.Services;
 using GoodWeather.ExternalServices.GeoCoding.Client;
@@ -15,16 +16,19 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
     private readonly IGeocodingClient _geoCodingClient;
     private readonly IWeatherClient _weatherClient;
     private readonly IScoreService _scoreService;
+    private readonly ICacheService _cacheService;
     private const int YearsToForecast = 5;
 
     public GetWeatherScoreHandler(
         IGeocodingClient geoCodingClient,
         IWeatherClient weatherClient,
-        IScoreService scoreService)
+        IScoreService scoreService,
+        ICacheService cacheService)
     {
         _geoCodingClient = geoCodingClient;
         _weatherClient = weatherClient;
         _scoreService = scoreService;
+        _cacheService = cacheService;
     }
 
     public async Task<CityWeatherScore> Handle(GetWeatherScore request, CancellationToken cancellationToken)
@@ -43,7 +47,12 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
     private async Task<CityParamFromApi?> GetCityParam(GetWeatherScore request, CancellationToken cancellationToken)
     {
         var geoCity = new GeoCity(request.CityName, 1, "es", "json");
-        var cityParam = await _geoCodingClient.GetByCity(geoCity, cancellationToken);
+
+        var cityParam = await _cacheService.GetAsync<CityWeatherParamFromApi>(request.CityName, cancellationToken);
+        if(cityParam is not null)
+            return cityParam.results.FirstOrDefault();
+
+        cityParam = await _geoCodingClient.GetByCity(geoCity, cancellationToken);
         return cityParam.results.FirstOrDefault();
     }
 
@@ -79,6 +88,11 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
             startDate,
             endDate,
             "temperature_2m");
+
+        var weather = await _cacheService.GetAsync<WeatherFromApi>(parameters.ToString(), cancellationToken);
+        if (weather is not null)
+            return weather;
+        
         return await _weatherClient.GetByParameters(parameters, cancellationToken);
     }
 }
