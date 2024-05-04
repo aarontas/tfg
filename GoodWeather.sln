@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodWeather.Common", "src\G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodWeather.Queries.Unit.Test", "src\GoodWeather.Queries.Unit.Test\GoodWeather.Queries.Unit.Test.csproj", "{D0F43CDC-D48C-4B8D-8FA1-CE1838FBF1C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodWeather.Cache", "GoodWeather.Cache\GoodWeather.Cache.csproj", "{041B2754-DCFF-4DF8-BBDE-03EB9364D904}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodWeather.Cache", "src\GoodWeather.Cache\GoodWeather.Cache.csproj", "{041B2754-DCFF-4DF8-BBDE-03EB9364D904}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
