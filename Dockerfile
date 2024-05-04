@@ -8,6 +8,7 @@ COPY ["src/GoodWeather.Api/GoodWeather.Api.csproj", "src/GoodWeather.Api/"]
 COPY ["src/GoodWeather.Queries/GoodWeather.Queries.csproj", "src/GoodWeather.Queries/"]
 COPY ["src/GoodWeather.Common/GoodWeather.Common.csproj", "src/GoodWeather.Common/"]
 COPY ["src/GoodWeather.ExternalServices/GoodWeather.ExternalServices.csproj", "src/GoodWeather.ExternalServices/"]
+COPY ["src/GoodWeather.ExternalServices/GoodWeather.Cache.csproj", "src/GoodWeather.Cache/"]
 RUN dotnet restore ./src/GoodWeather.Api/GoodWeather.Api.csproj
 
 COPY src src
