@@ -1,5 +1,4 @@
 ﻿using GoodWeather.Cache;
-using GoodWeather.Common.Dto;
 using GoodWeather.Common.Services;
 using GoodWeather.ExternalServices.GeoCoding.Client;
 using GoodWeather.ExternalServices.GeoCoding.RequestModels;
