@@ -1,4 +1,4 @@
-﻿using GoodWeather.Common.Dto;
+﻿using GoodWeather.Cache;
 using GoodWeather.Common.Services;
 using GoodWeather.ExternalServices.GeoCoding.Client;
 using GoodWeather.ExternalServices.GeoCoding.RequestModels;
@@ -15,13 +15,17 @@ public class GetWeatherScoreShould
     private Mock<IWeatherClient> _weatherScoreService;
     private Mock<IGeocodingClient> _geoCodingClient;
     private Mock<IScoreService> _scoreService;
+    private Mock<ICacheService> _cacheService;
 
     public GetWeatherScoreShould()
     {
         _weatherScoreService = new Mock<IWeatherClient>(MockBehavior.Strict);
         _geoCodingClient = new Mock<IGeocodingClient>(MockBehavior.Strict);
         _scoreService = new Mock<IScoreService>(MockBehavior.Strict);
-        _sut = new GetWeatherScoreHandler(_geoCodingClient.Object, _weatherScoreService.Object, _scoreService.Object);
+        _cacheService = new Mock<ICacheService>(MockBehavior.Strict);
+        _cacheService.Setup(x => x.GetAsync<CityWeatherParamFromApi>(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync((CityWeatherParamFromApi?)null);
+        _sut = new GetWeatherScoreHandler(_geoCodingClient.Object, _weatherScoreService.Object, _scoreService.Object, _cacheService.Object);
     }
 
     [Fact]
