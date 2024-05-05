@@ -19,4 +19,4 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine3.16 AS runtime
 WORKDIR /app
 COPY --from=build /app/publish .
 
-ENTRYPOINT ["dotnet", "GoodWeather.Api.dll", "--urls", "http://+:80"]
+ENTRYPOINT ["dotnet", "GoodWeather.Api.dll"]
