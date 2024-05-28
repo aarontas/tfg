@@ -34,6 +34,7 @@ public static class Startup
         {
             options.Configuration = configuration.GetConnectionString("redis");
         });
+        services.AddCors();
         return builder;
     }
     public static WebApplication UseAppMiddlewares(this WebApplication app)
