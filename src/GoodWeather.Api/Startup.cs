@@ -41,7 +41,8 @@ public static class Startup
                 policy.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .SetIsOriginAllowed(origin => true) ;
+                    .SetIsOriginAllowed(origin => true)
+                    .WithOrigins("http://127.0.0.1");
             });
         });
         return builder;
