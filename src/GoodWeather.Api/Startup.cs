@@ -38,11 +38,9 @@ public static class Startup
         {
             options.AddDefaultPolicy(policy =>
             {
-                policy
+                policy.AllowAnyOrigin()
                     .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .SetIsOriginAllowed(origin => true)
-                    .WithOrigins("http://localhost:5173");
+                    .AllowAnyHeader();
             });
         });
         return builder;
