@@ -36,7 +36,7 @@ public static class Startup
         });
         services.AddCors(options =>
         {
-            options.AddPolicy("AllowAll", policy =>
+            options.AddDefaultPolicy(policy =>
             {
                 policy.AllowAnyOrigin()
                     .AllowAnyMethod()
@@ -59,7 +59,7 @@ public static class Startup
         {
             endpoints.MapControllers();
         });
-        app.UseCors("AllowAll");
+        app.UseCors();
         return app;
     }
 }
