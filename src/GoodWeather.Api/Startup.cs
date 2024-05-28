@@ -49,7 +49,7 @@ public static class Startup
         app.UseCors(x=> x
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .WithOrigins("http://localhost:5173")
+            .AllowAnyOrigin()
             .AllowCredentials());
         app.UseEndpoints(endpoints =>
         {
