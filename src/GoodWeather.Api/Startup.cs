@@ -34,7 +34,15 @@ public static class Startup
         {
             options.Configuration = configuration.GetConnectionString("redis");
         });
-        services.AddCors();
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll", policy =>
+            {
+                policy.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+        });
         return builder;
     }
     public static WebApplication UseAppMiddlewares(this WebApplication app)
@@ -50,6 +58,7 @@ public static class Startup
         {
             endpoints.MapControllers();
         });
+        app.UseCors("AllowAll");
         return app;
     }
 }
