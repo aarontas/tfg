@@ -42,7 +42,7 @@ public static class Startup
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .SetIsOriginAllowed(origin => true)
-                    .WithOrigins("http://127.0.0.1");
+                    .WithOrigins("http://localhost:5173");
             });
         });
         return builder;
