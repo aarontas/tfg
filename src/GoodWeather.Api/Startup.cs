@@ -46,11 +46,10 @@ public static class Startup
             app.UseSwaggerUI();
         }
         app.UseRouting();
-        app.UseCors(x=> x
+        app.UseCors(x => x
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .AllowAnyOrigin()
-            .AllowCredentials());
+            .AllowAnyOrigin());
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
