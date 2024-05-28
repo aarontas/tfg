@@ -53,7 +53,7 @@ public static class Startup
         app.UseCors(x=> x
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .SetIsOriginAllowed(origin => true)
+            .WithOrigins("http://localhost:5173")
             .AllowCredentials());
         return app;
     }
