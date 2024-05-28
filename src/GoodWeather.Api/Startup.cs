@@ -36,9 +36,12 @@ public static class Startup
         });
         services.AddCors(options =>
         {
-            options.AddDefaultPolicy(policy =>
+            options.AddDefaultPolicy(builder =>
             {
-                policy.WithOrigins("http://localhost:5173");
+                builder.SetIsOriginAllowed(_ => true)
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    .AllowAnyMethod();
             });
         });
         return builder;
