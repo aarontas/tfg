@@ -40,7 +40,8 @@ public static class Startup
             {
                 policy.AllowAnyOrigin()
                     .AllowAnyMethod()
-                    .AllowAnyHeader();
+                    .AllowAnyHeader()
+                    .SetIsOriginAllowed(origin => true) ;
             });
         });
         return builder;
