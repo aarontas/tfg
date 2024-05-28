@@ -51,9 +51,10 @@ public static class Startup
             endpoints.MapControllers();
         });
         app.UseCors(x=> x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .SetIsOriginAllowed(origin => true)
+            .AllowCredentials());
         return app;
     }
 }
