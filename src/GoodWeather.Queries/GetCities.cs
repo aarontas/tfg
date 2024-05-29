@@ -66,8 +66,8 @@ public class GetCitiesHandler : IRequestHandler<GetCities, IEnumerable<CityWeath
         var parameters = new CityParameters(
             city.latitude,
             city.longitude,
-            DateTime.Now.AddHours(-1),
-            DateTime.Now,
+            DateTime.Today.AddDays(-5),
+            DateTime.Today.AddDays(-5),
             "temperature_2m");
 
         var weather = await _cacheService.GetAsync<WeatherFromApi>(parameters.ToString(), cancellationToken);
