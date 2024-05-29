@@ -15,34 +15,33 @@ public class GetCitiesHandler : IRequestHandler<GetCities, IEnumerable<CityWeath
     private readonly ICacheService _cacheService;
     private readonly IGeocodingClient _geoCodingClient;
     private readonly IWeatherClient _weatherClient;
-    private readonly IReadOnlyList<string> _cities;
+    private readonly IDictionary<string, string> _cities;
 
     public GetCitiesHandler(ICacheService cacheService, IGeocodingClient geoCodingClient, IWeatherClient weatherClient)
     {
         _cacheService = cacheService;
         _geoCodingClient = geoCodingClient;
         _weatherClient = weatherClient;
-        _cities = new List<string>
-        {
-            "Barcelona",
-            "Madrid",
-            "Maspalomas",
-            "Melbourne",
-            "Moscu"
-        };
+        _cities = new Dictionary<string, string>();
+        _cities.Add("Barcelona", "https://www.svgrepo.com/show/338974/barcelona.svg");
+        _cities.Add("Madrid", "https://www.svgrepo.com/show/339334/madrid-statue.svg");
+        _cities.Add("Maspalomas", "https://www.svgrepo.com/show/490550/beach-umbrella.svg");
+        _cities.Add("Melbourne", "https://www.svgrepo.com/show/429083/animal-australia-kangaroo.svg");
+        _cities.Add("Helsinki", "https://www.svgrepo.com/show/308251/finland.svg");
+        _cities.Add("Nairobi", "https://www.svgrepo.com/show/481472/tiger-illustration-2.svg");
     }
 
     public async Task<IEnumerable<CityWeather>> Handle(GetCities request, CancellationToken cancellationToken)
     {
         var cities = new List<CityWeather>();
-        foreach (var cityName in _cities)
+        foreach (var cityParam in _cities)
         {
-            var cityParamFromApi = await GetCityParam(cityName, cancellationToken);
+            var cityParamFromApi = await GetCityParam(cityParam.Key, cancellationToken);
             if (cityParamFromApi is null)
-                throw new Exception($"City with name {cityName} not found");
+                throw new Exception($"City with name {cityParam} not found");
 
             var temperature = await GetTemperature(cityParamFromApi, cancellationToken);
-            cities.Add(new CityWeather(cityName, temperature));
+            cities.Add(new CityWeather(cityParam.Key, temperature, cityParam.Value));
         }
         return cities;
     }
