@@ -24,4 +24,12 @@ public class WeatherStatusController : ControllerBase
         var result = await _mediator.Send(request, cancellationToken);
         return Ok(result);
     }
+
+    [HttpGet("cities")]
+    public async Task<IActionResult> GetCities(CancellationToken cancellationToken)
+    {
+        var request = new GetCities();
+        var result = await _mediator.Send(request, cancellationToken);
+        return Ok(result);
+    }
 }
