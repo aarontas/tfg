@@ -19,12 +19,12 @@ public class ScoreService : IScoreService
         switch (average)
         {
             case > 18 and < 30:
-                return new CityWeatherScore( cityName, 10.00,average);
+                return new CityWeatherScore( cityName, 10.00,average, "");
             case > 10 and < 18:
             case > 30 and < 40:
-                return new CityWeatherScore( cityName, 5.00, average);
+                return new CityWeatherScore( cityName, 5.00, average, "");
             default:
-                return new CityWeatherScore( cityName, 0.00, average);
+                return new CityWeatherScore( cityName, 0.00, average, "");
         }
     }
 }
