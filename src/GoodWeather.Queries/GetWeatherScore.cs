@@ -38,6 +38,13 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
         _cities.Add("Melbourne", "https://www.svgrepo.com/show/429083/animal-australia-kangaroo.svg");
         _cities.Add("Helsinki", "https://www.svgrepo.com/show/308251/finland.svg");
         _cities.Add("Nairobi", "https://www.svgrepo.com/show/481472/tiger-illustration-2.svg");
+
+        // _cities.Add("Barcelona", "");
+        // _cities.Add("Madrid", "");
+        // _cities.Add("Maspalomas", "");
+        // _cities.Add("Melbourne", "");
+        // _cities.Add("Helsinki", "");
+        // _cities.Add("Nairobi", "");
     }
 
     public async Task<CityWeatherScore> Handle(GetWeatherScore request, CancellationToken cancellationToken)
