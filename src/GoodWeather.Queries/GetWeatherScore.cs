@@ -50,7 +50,7 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
         return new CityWeatherScore(
             request.CityName,
             averageScore.Score / YearsToForecast,
-            averageScore.AverageTemperature / YearsToForecast,
+            (averageScore.AverageTemperature / YearsToForecast).ToString("0.##"),
             _cities[request.CityName]);
     }
     private async Task<CityParamFromApi?> GetCityParam(GetWeatherScore request, CancellationToken cancellationToken)
@@ -65,9 +65,9 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
         return cityParam.results.FirstOrDefault();
     }
 
-    private async Task<CityWeatherScore> GetAverageScore(GetWeatherScore request, CityParamFromApi city, CancellationToken cancellationToken)
+    private async Task<CityWeatherScoreDto> GetAverageScore(GetWeatherScore request, CityParamFromApi city, CancellationToken cancellationToken)
     {
-        var averageScore = new CityWeatherScore(request.CityName, default, default, "");
+        var averageScore = new CityWeatherScoreDto(request.CityName, default, default, "");
         var startDate = new DateTime(2023, request.StartDate.Month, request.StartDate.Day);
         var endDate = new DateTime(2023, request.EndDate.Month, request.EndDate.Day);
 
@@ -76,7 +76,7 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
             var weather = await GetWeather(startDate, endDate, city, yearsBefore, cancellationToken);
             var currentScore = _scoreService.GetScore(weather, request.CityName);
 
-            averageScore = new CityWeatherScore(
+            averageScore = new CityWeatherScoreDto(
                 request.CityName,
                 averageScore.Score + currentScore.Score,
                 averageScore.AverageTemperature + currentScore.AverageTemperature,
