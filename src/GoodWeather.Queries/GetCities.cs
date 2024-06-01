@@ -1,5 +1,6 @@
 using GoodWeather.Cache;
 using GoodWeather.Common.Dto;
+using GoodWeather.Common.Services;
 using GoodWeather.ExternalServices.GeoCoding.Client;
 using GoodWeather.ExternalServices.GeoCoding.RequestModels;
 using GoodWeather.ExternalServices.Weather.Client;
@@ -15,42 +16,30 @@ public class GetCitiesHandler : IRequestHandler<GetCities, IEnumerable<CityWeath
     private readonly ICacheService _cacheService;
     private readonly IGeocodingClient _geoCodingClient;
     private readonly IWeatherClient _weatherClient;
-    private readonly IDictionary<string, string> _cities;
+    private readonly IScoreService _scoreService;
 
-    public GetCitiesHandler(ICacheService cacheService, IGeocodingClient geoCodingClient, IWeatherClient weatherClient)
+    public GetCitiesHandler(ICacheService cacheService, IGeocodingClient geoCodingClient, IWeatherClient weatherClient, IScoreService scoreService)
     {
         _cacheService = cacheService;
         _geoCodingClient = geoCodingClient;
         _weatherClient = weatherClient;
-        _cities = new Dictionary<string, string>();
-        _cities.Add("Barcelona", "https://www.svgrepo.com/show/338974/barcelona.svg");
-        _cities.Add("Madrid", "https://www.svgrepo.com/show/339334/madrid-statue.svg");
-        _cities.Add("Maspalomas", "https://www.svgrepo.com/show/490550/beach-umbrella.svg");
-        _cities.Add("Melbourne", "https://www.svgrepo.com/show/429083/animal-australia-kangaroo.svg");
-        _cities.Add("Helsinki", "https://www.svgrepo.com/show/308251/finland.svg");
-        _cities.Add("Nairobi", "https://www.svgrepo.com/show/481472/tiger-illustration-2.svg");
-
-        // _cities.Add("Barcelona", "");
-        // _cities.Add("Madrid", "");
-        // _cities.Add("Maspalomas", "");
-        // _cities.Add("Melbourne", "");
-        // _cities.Add("Helsinki", "");
-        // _cities.Add("Nairobi", "");
+        _scoreService = scoreService;
     }
 
     public async Task<IEnumerable<CityWeather>> Handle(GetCities request, CancellationToken cancellationToken)
     {
-        var cities = new List<CityWeather>();
-        foreach (var cityParam in _cities)
+        var cities = _scoreService.Cities;
+        var cityWeathers = new List<CityWeather>();
+        foreach (var cityParam in cities)
         {
             var cityParamFromApi = await GetCityParam(cityParam.Key, cancellationToken);
             if (cityParamFromApi is null)
                 throw new Exception($"City with name {cityParam} not found");
 
             var temperature = await GetTemperature(cityParamFromApi, cancellationToken);
-            cities.Add(new CityWeather(cityParam.Key, temperature, cityParam.Value));
+            cityWeathers.Add(new CityWeather(cityParam.Key, temperature, cityParam.Value));
         }
-        return cities;
+        return cityWeathers;
     }
 
     private async Task<CityParamFromApi?> GetCityParam(string cityName, CancellationToken cancellationToken)

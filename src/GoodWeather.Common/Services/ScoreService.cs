@@ -5,10 +5,23 @@ namespace GoodWeather.Common.Services;
 public interface IScoreService
 {
     public CityWeatherScoreDto GetScore(WeatherFromApi cityWeather, string cityName);
+    public IDictionary<string, string> Cities { get; }
 }
 
 public class ScoreService : IScoreService
 {
+    public IDictionary<string, string> Cities { get; }
+    public ScoreService()
+    {
+        Cities = new Dictionary<string, string>();
+        Cities.Add("Barcelona", "https://www.svgrepo.com/show/338974/barcelona.svg");
+        Cities.Add("Madrid", "https://www.svgrepo.com/show/339334/madrid-statue.svg");
+        Cities.Add("Maspalomas", "https://www.svgrepo.com/show/490550/beach-umbrella.svg");
+        Cities.Add("Melbourne", "https://www.svgrepo.com/show/429083/animal-australia-kangaroo.svg");
+        Cities.Add("Helsinki", "https://www.svgrepo.com/show/308251/finland.svg");
+        Cities.Add("Nairobi", "https://www.svgrepo.com/show/481472/tiger-illustration-2.svg");
+    }
+
     public CityWeatherScoreDto GetScore(WeatherFromApi cityWeather, string cityName)
     {
         var temperatures = cityWeather.Hourly.Temperature_2m;
@@ -27,5 +40,6 @@ public class ScoreService : IScoreService
                 return new CityWeatherScoreDto( cityName, 0.00, average, "");
         }
     }
+
 }
 

@@ -18,7 +18,6 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
     private readonly IScoreService _scoreService;
     private readonly ICacheService _cacheService;
     private const int YearsToForecast = 5;
-    private readonly IDictionary<string, string> _cities;
 
     public GetWeatherScoreHandler(
         IGeocodingClient geoCodingClient,
@@ -30,14 +29,6 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
         _weatherClient = weatherClient;
         _scoreService = scoreService;
         _cacheService = cacheService;
-
-        _cities = new Dictionary<string, string>();
-        _cities.Add("Barcelona", "https://www.svgrepo.com/show/338974/barcelona.svg");
-        _cities.Add("Madrid", "https://www.svgrepo.com/show/339334/madrid-statue.svg");
-        _cities.Add("Maspalomas", "https://www.svgrepo.com/show/490550/beach-umbrella.svg");
-        _cities.Add("Melbourne", "https://www.svgrepo.com/show/429083/animal-australia-kangaroo.svg");
-        _cities.Add("Helsinki", "https://www.svgrepo.com/show/308251/finland.svg");
-        _cities.Add("Nairobi", "https://www.svgrepo.com/show/481472/tiger-illustration-2.svg");
     }
 
     public async Task<CityWeatherScore> Handle(GetWeatherScore request, CancellationToken cancellationToken)
@@ -47,11 +38,12 @@ public class GetWeatherScoreHandler : IRequestHandler<GetWeatherScore, CityWeath
             throw new Exception($"City with name {request.CityName} not found");
 
         var averageScore = await GetAverageScore(request, city, cancellationToken);
+        var cities = _scoreService.Cities;
         return new CityWeatherScore(
             request.CityName,
             averageScore.Score / YearsToForecast,
             (averageScore.AverageTemperature / YearsToForecast).ToString("0.##"),
-            _cities[request.CityName]);
+            cities[request.CityName]);
     }
     private async Task<CityParamFromApi?> GetCityParam(GetWeatherScore request, CancellationToken cancellationToken)
     {
