@@ -14,19 +14,19 @@ public class ScoreService : IScoreService
     public ScoreService()
     {
         Cities = new Dictionary<string, string>();
-        // Cities.Add("Barcelona", "https://www.svgrepo.com/show/338974/barcelona.svg");
-        // Cities.Add("Madrid", "https://www.svgrepo.com/show/339334/madrid-statue.svg");
-        // Cities.Add("Maspalomas", "https://www.svgrepo.com/show/490550/beach-umbrella.svg");
-        // Cities.Add("Melbourne", "https://www.svgrepo.com/show/429083/animal-australia-kangaroo.svg");
-        // Cities.Add("Helsinki", "https://www.svgrepo.com/show/308251/finland.svg");
-        // Cities.Add("Nairobi", "https://www.svgrepo.com/show/481472/tiger-illustration-2.svg");
+        Cities.Add("Barcelona", "https://www.svgrepo.com/show/338974/barcelona.svg");
+        Cities.Add("Madrid", "https://www.svgrepo.com/show/339334/madrid-statue.svg");
+        Cities.Add("Maspalomas", "https://www.svgrepo.com/show/490550/beach-umbrella.svg");
+        Cities.Add("Melbourne", "https://www.svgrepo.com/show/429083/animal-australia-kangaroo.svg");
+        Cities.Add("Helsinki", "https://www.svgrepo.com/show/308251/finland.svg");
+        Cities.Add("Nairobi", "https://www.svgrepo.com/show/481472/tiger-illustration-2.svg");
 
-        Cities.Add("Barcelona", "");
-        Cities.Add("Madrid", "");
-        Cities.Add("Maspalomas", "");
-        Cities.Add("Melbourne", "");
-        Cities.Add("Helsinki", "");
-        Cities.Add("Nairobi", "");
+        // Cities.Add("Barcelona", "");
+        // Cities.Add("Madrid", "");
+        // Cities.Add("Maspalomas", "");
+        // Cities.Add("Melbourne", "");
+        // Cities.Add("Helsinki", "");
+        // Cities.Add("Nairobi", "");
     }
 
     public CityWeatherScoreDto GetScore(WeatherFromApi cityWeather, string cityName)
